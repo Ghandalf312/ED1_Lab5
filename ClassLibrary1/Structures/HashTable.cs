@@ -9,94 +9,89 @@ namespace ClassLibrary1.Structures
     public class HashTable<T, TU>
     {
 
-        private LinkedList<Tuple<T, TU>>[] _items;
-        private int _fillFactor = 3;
-        private int _size;
+        private LinkedList<Tuple<T, TU>>[] items;
+        private int factorLlenado = 3;
+        private int tamaño;
 
         public HashTable()
         {
-            _items = new LinkedList<Tuple<T, TU>>[4];
+            items = new LinkedList<Tuple<T, TU>>[4];
         }
 
-        public void Add(T key, TU value)
+        public void Insertar(T key, TU value)
         {
-            var pos = GetPosition(key, _items.Length);
-            if (_items[pos] == null)
+            var pos = PosicionEnHash(key, items.Length);
+            if (items[pos] == null)
             {
-                _items[pos] = new LinkedList<Tuple<T, TU>>();
+                items[pos] = new LinkedList<Tuple<T, TU>>();
             }
-            if (_items[pos].Any(x => x.Item1.Equals(key)))
+            if (items[pos].Any(x => x.Item1.Equals(key)))
             {
-                throw new KeyNotFoundException("Duplicate key, cannot insert.");
+                throw new ArgumentException("Llave duplicada, no se puede insertar");
             }
-            _size++;
-            if (NeedToGrow())
+            tamaño++;
+            if (tamaño >= factorLlenado)
             {
-                GrowAndReHash();
+                ReHashing();
             }
-            pos = GetPosition(key, _items.Length);
-            if (_items[pos] == null)
+            pos = PosicionEnHash(key, items.Length);
+            if (items[pos] == null)
             {
-                _items[pos] = new LinkedList<Tuple<T, TU>>();
+                items[pos] = new LinkedList<Tuple<T, TU>>();
             }
-            _items[pos].AddFirst(new Tuple<T, TU>(key, value));
+            items[pos].AddFirst(new Tuple<T, TU>(key, value));
         }
 
-        public void Remove(T key)
+        public void Eliminar(T key)
         {
-            var pos = GetPosition(key, _items.Length);
-            if (_items[pos] != null)
+            var pos = PosicionEnHash(key, items.Length);
+            if (items[pos] != null)
             {
-                var objToRemove = _items[pos].FirstOrDefault(item => item.Item1.Equals(key));
-                if (objToRemove == null) return;
-                _items[pos].Remove(objToRemove);
-                _size--;
+                var objRemover = items[pos].FirstOrDefault(item => item.Item1.Equals(key));
+                if (objRemover == null) return;
+                items[pos].Remove(objRemover);
+                tamaño--;
             }
             else
             {
-                throw new Exception("Value not in HashTable.");
+                throw new Exception("Este valor no se encuentra en la tabla hash.");
             }
         }
 
         public TU Get(T key)
         {
-            var pos = GetPosition(key, _items.Length);
-            foreach (var item in _items[pos].Where(item => item.Item1.Equals(key)))
+            var pos = PosicionEnHash(key, items.Length);
+            foreach (var item in items[pos].Where(item => item.Item1.Equals(key)))
             {
                 return item.Item2;
             }
-            throw new Exception("Key does not exist in HashTable.");
+            throw new KeyNotFoundException("La llave no existe en la tabla hash.");
         }
 
-        private void GrowAndReHash()
+        private void ReHashing()
         {
-            _fillFactor *= 2;
-            var newItems = new LinkedList<Tuple<T, TU>>[_items.Length * 2];
-            foreach (var item in _items.Where(x => x != null))
+            factorLlenado *= 2;
+            var nuevosItems = new LinkedList<Tuple<T, TU>>[items.Length * 2];
+            foreach (var item in items.Where(x => x != null))
             {
                 foreach (var value in item)
                 {
-                    var pos = GetPosition(value.Item1, newItems.Length);
-                    if (newItems[pos] == null)
+                    var pos = PosicionEnHash(value.Item1, nuevosItems.Length);
+                    if (nuevosItems[pos] == null)
                     {
-                        newItems[pos] = new LinkedList<Tuple<T, TU>>();
+                        nuevosItems[pos] = new LinkedList<Tuple<T, TU>>();
                     }
-                    newItems[pos].AddFirst(new Tuple<T, TU>(value.Item1, value.Item2));
+                    nuevosItems[pos].AddFirst(new Tuple<T, TU>(value.Item1, value.Item2));
                 }
             }
-            _items = newItems;
+            items = nuevosItems;
         }
 
-        private int GetPosition(T key, int length)
+        private int PosicionEnHash(T key, int length)
         {
             var hash = key.GetHashCode();
             var pos = Math.Abs(hash % length);
             return pos;
-        }
-
-        private bool NeedToGrow()
-        {
-            return _size >= _fillFactor;
         }
     }
 }

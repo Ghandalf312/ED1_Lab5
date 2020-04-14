@@ -1,11 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28307.1022
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29728.190
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ED1_Lab5", "ED1_Lab5\ED1_Lab5.csproj", "{DAF911D2-D553-48B1-BF2D-4679D375AC68}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClassLibrary1", "ClassLibrary1\ClassLibrary1.csproj", "{1B2498FA-695A-48EC-AB11-5FE44288AF35}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CustomGenerics", "ClassLibrary1\CustomGenerics.csproj", "{1B2498FA-695A-48EC-AB11-5FE44288AF35}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
