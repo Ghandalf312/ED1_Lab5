@@ -10,6 +10,45 @@ namespace ED1_Lab4.Controllers
     public class TareasController : Controller
     {
         public static List<TareaPendiente> CargaTareas = new List<TareaPendiente>();
+        public static List<Usuario> IngresoUsuario = new List<Usuario>();
+
+        // GET: Tareas/PaginaPrincipal
+        public ActionResult PaginaPrincipal()
+        {
+            return View();
+        }
+
+
+        // GET: Tareas/Create
+        public ActionResult Login()
+        {
+            return View();
+        }
+
+        // POST: Tareas/Create
+        [HttpPost]
+        public ActionResult Login(FormCollection collection)
+        {
+            try
+            {
+                Usuario IngresoUser = new Usuario()
+                {
+                    User = collection["User"],
+                    Contraseña = collection["Contraseña"],
+                    ProyectManager = Convert.ToBoolean(collection["ProyectManager"])
+
+                };
+                IngresoUsuario.Add(IngresoUser);
+
+                return RedirectToAction("Index");
+            }
+            catch
+            {
+                return View();
+            }
+        }
+
+
         // GET: Tareas
         public ActionResult Index()
         {

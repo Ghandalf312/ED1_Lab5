@@ -126,6 +126,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\TareaPendiente.cs" />
+    <Compile Include="Models\Usuario.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -167,6 +168,8 @@
     <Content Include="Views\Tareas\Index.cshtml" />
     <Content Include="Views\Tareas\Create.cshtml" />
     <Content Include="Views\Tareas\Delete.cshtml" />
+    <Content Include="Views\Tareas\Login.cshtml" />
+    <Content Include="Views\Tareas\PaginaPrincipal.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
