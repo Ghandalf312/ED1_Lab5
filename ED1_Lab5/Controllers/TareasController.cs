@@ -5,6 +5,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.IO;
+using System.Text.RegularExpressions;
 
 namespace ED1_Lab4.Controllers
 {
@@ -13,7 +15,13 @@ namespace ED1_Lab4.Controllers
         public static List<TareaPendiente> CargaTareas = new List<TareaPendiente>();
         public static List<Usuario> IngresoUsuario = new List<Usuario>();
 
-        
+        //CREAR una Tabla Hash Global
+
+        HashTable<string,TareaPendiente> HashTareas;
+
+        //TareaPendiente
+        TareaPendiente TareaRaiz;
+
 
         // GET: Tareas/PaginaPrincipal
         public ActionResult PaginaPrincipal()
@@ -194,12 +202,16 @@ namespace ED1_Lab4.Controllers
                         }
                         if (infor_separada.Length == 6)
                         {
-                            Nodo Insertado = NuevoHijo(Convert.ToInt32(infor_separada[0]), ref Raiz, ref Raiz);
-                            Insertado.Nombre = infor_separada[1];
-                            Insertado.Descripcion = infor_separada[2];
-                            Insertado.Casa_productora = infor_separada[3];
-                            Insertado.Precio = Convert.ToDouble(infor_separada[4].Replace("$", ""));
-                            Insertado.Existencia = Convert.ToInt32(infor_separada[5]);
+                            //Necesito Cargar Las tareas a la tabla hash global
+                            //Que hay que enviar
+                            TareaPendiente CargaArchTarea = HashTareas.Insertar<TareaRaiz.Titulo, tareaPendiente>;
+
+                            CargaArchTarea.Titulo = infor_separada[1];
+                            CargaArchTarea.Descripcion = infor_separada[2];
+                            CargaArchTarea.Proyecto = infor_separada[3];
+                            CargaArchTarea.Prioridad = Convert.ToInt32(infor_separada[4]);
+                            CargaArchTarea.FechaEntrega = infor_separada[5];
+                            
                             lector = archivolec.ReadLine();
                         }
                         lector = archivolec.ReadLine();
