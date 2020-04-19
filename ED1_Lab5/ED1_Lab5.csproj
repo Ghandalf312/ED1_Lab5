@@ -120,13 +120,18 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Cola.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\TareasController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="HashTable.cs" />
+    <Compile Include="ILinearDataStructure.cs" />
+    <Compile Include="LinearDataStructureBase.cs" />
     <Compile Include="Models\TareaPendiente.cs" />
     <Compile Include="Models\Usuario.cs" />
+    <Compile Include="Nodo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -166,10 +171,10 @@
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Tareas\Index.cshtml" />
-    <Content Include="Views\Tareas\Create.cshtml" />
     <Content Include="Views\Tareas\Delete.cshtml" />
     <Content Include="Views\Tareas\Login.cshtml" />
     <Content Include="Views\Tareas\PaginaPrincipal.cshtml" />
+    <Content Include="Views\Tareas\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

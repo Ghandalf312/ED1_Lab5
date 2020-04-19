@@ -8,8 +8,7 @@ namespace ClassLibrary1.Structures
 {
     public class HashTable<T, TU>
     {
-        
-        //                      < Llave, Valor>
+
         private LinkedList<Tuple<T, TU>>[] items;
         private int factorLlenado = 3;
         private int tamaño;

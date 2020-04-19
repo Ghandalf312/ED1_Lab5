@@ -1,4 +1,5 @@
 ﻿using ED1_Lab5.Models;
+using ClassLibrary1.Structures;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,6 +12,8 @@ namespace ED1_Lab4.Controllers
     {
         public static List<TareaPendiente> CargaTareas = new List<TareaPendiente>();
         public static List<Usuario> IngresoUsuario = new List<Usuario>();
+
+        
 
         // GET: Tareas/PaginaPrincipal
         public ActionResult PaginaPrincipal()
@@ -31,6 +34,7 @@ namespace ED1_Lab4.Controllers
         {
             try
             {
+                
                 Usuario IngresoUser = new Usuario()
                 {
                     User = collection["User"],
@@ -74,8 +78,10 @@ namespace ED1_Lab4.Controllers
         {
             try
             {
+                var hashTarea = new HashTable<string, TareaPendiente>();
                 TareaPendiente NuevoPendiente = new TareaPendiente()
                 {
+                   
                     Titulo = collection["Titulo"],
                     Proyecto = collection["Proyecto"],
                     Descripcion = collection["Descripcion"],
@@ -84,7 +90,7 @@ namespace ED1_Lab4.Controllers
 
                 };
                 CargaTareas.Add(NuevoPendiente);
-
+                hashTarea.Insertar(NuevoPendiente.Titulo, NuevoPendiente);
                 return RedirectToAction("Index");
             }
             catch
@@ -146,5 +152,67 @@ namespace ED1_Lab4.Controllers
                 return View();
             }
         }
+        //Carga de Archivo
+        //GET
+        public ActionResult CargaArch()
+        {
+            ViewBag.Message = "Elección de archivo";
+            return View();
+        }
+        //Post
+        [HttpPost]
+        public ActionResult Carga(HttpPostedFileBase postedFile)
+        {
+
+            string directarchivo = string.Empty;
+            if (postedFile != null)
+            {
+                string path = Server.MapPath("~/Cargas/");
+                if (!Directory.Exists(path))
+                {
+                    Directory.CreateDirectory(path);
+                }
+                directarchivo = path + Path.GetFileName(postedFile.FileName);
+                postedFile.SaveAs(directarchivo);
+                //Caja_arbol.Instance.direccion_archivo_arbol = directarchivo;
+            }
+            //Modificación de los digitos de la exitencia
+            using (var archivo = new FileStream(directarchivo, FileMode.Open))
+            {
+                using (var archivolec = new StreamReader(archivo))
+                {
+                    string lector = archivolec.ReadLine();
+                    lector = archivolec.ReadLine();
+                    while (lector != null)
+                    {
+                        Regex regx = new Regex("," + "(?=(?:[^\"]*\"[^\"]*\")*(?![^\"]*\"))");
+                        string[] infor_separada = regx.Split(lector);
+                        if (infor_separada[infor_separada.Length - 1].Length < 2)
+                        {
+                            infor_separada[infor_separada.Length - 1] = "0" + infor_separada[infor_separada.Length - 1];
+
+                        }
+                        if (infor_separada.Length == 6)
+                        {
+                            Nodo Insertado = NuevoHijo(Convert.ToInt32(infor_separada[0]), ref Raiz, ref Raiz);
+                            Insertado.Nombre = infor_separada[1];
+                            Insertado.Descripcion = infor_separada[2];
+                            Insertado.Casa_productora = infor_separada[3];
+                            Insertado.Precio = Convert.ToDouble(infor_separada[4].Replace("$", ""));
+                            Insertado.Existencia = Convert.ToInt32(infor_separada[5]);
+                            lector = archivolec.ReadLine();
+                        }
+                        lector = archivolec.ReadLine();
+
+                    }
+                    Raiz = LlamarBalanceo(Raiz);
+                }
+            }
+
+
+
+            return RedirectToAction("PaginaPrincipal");
+        }
     }
+
 }
