@@ -86,6 +86,7 @@ namespace ED1_Lab4.Controllers
         {
             try
             {
+                var colaPrioridad = new Cola<string>();
                 var hashTarea = new HashTable<string, TareaPendiente>();
                 TareaPendiente NuevoPendiente = new TareaPendiente()
                 {
@@ -99,6 +100,8 @@ namespace ED1_Lab4.Controllers
                 };
                 CargaTareas.Add(NuevoPendiente);
                 hashTarea.Insertar(NuevoPendiente.Titulo, NuevoPendiente);
+                colaPrioridad.Insertar(NuevoPendiente.Titulo, NuevoPendiente.Prioridad);
+      
                 return RedirectToAction("Index");
             }
             catch
@@ -217,7 +220,6 @@ namespace ED1_Lab4.Controllers
                         lector = archivolec.ReadLine();
 
                     }
-                    Raiz = LlamarBalanceo(Raiz);
                 }
             }
 
