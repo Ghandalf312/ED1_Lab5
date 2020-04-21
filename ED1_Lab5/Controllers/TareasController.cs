@@ -15,6 +15,10 @@ namespace ED1_Lab4.Controllers
         public static List<TareaPendiente> CargaTareas = new List<TareaPendiente>();
         public static List<Usuario> IngresoUsuario = new List<Usuario>();
 
+
+
+        private string RutaTareas = AppDomain.CurrentDomain.BaseDirectory + "/tareas";
+
         //CREAR una Tabla Hash Global
 
         HashTable<string,TareaPendiente> HashTareas;
@@ -86,7 +90,7 @@ namespace ED1_Lab4.Controllers
         {
             try
             {
-                var hashTarea = new HashTable<string, TareaPendiente>();
+                
                 TareaPendiente NuevoPendiente = new TareaPendiente()
                 {
                    
@@ -98,7 +102,9 @@ namespace ED1_Lab4.Controllers
 
                 };
                 CargaTareas.Add(NuevoPendiente);
-                hashTarea.Insertar(NuevoPendiente.Titulo, NuevoPendiente);
+
+                HashTareas.Insertar(NuevoPendiente.Titulo, NuevoPendiente);
+                
                 return RedirectToAction("Index");
             }
             catch
@@ -151,6 +157,8 @@ namespace ED1_Lab4.Controllers
                     FechaEntrega = collection["FechaEntrega"]
 
                 };
+
+                HashTareas.Eliminar(EliminarPendiente.Titulo);
                 CargaTareas.Remove(EliminarPendiente);
 
                 return RedirectToAction("Index");
@@ -159,6 +167,19 @@ namespace ED1_Lab4.Controllers
             {
                 return View();
             }
+        }
+        //GET
+        public ActionResult CrearArch()
+        {
+            ViewBag.Message = "Creacion de archivo";
+            return View();
+        }
+        //Post
+        [HttpPost]
+        public ActionResult CrearArch(HttpPostedFileBase postedFile)
+        {
+            StreamWriter Escribir = new StreamWriter(RutaTareas);
+            return RedirectToAction("Index");
         }
         //Carga de Archivo
         //GET
@@ -204,6 +225,8 @@ namespace ED1_Lab4.Controllers
                         {
                             //Necesito Cargar Las tareas a la tabla hash global
                             //Que hay que enviar
+
+                            //Esta es la variable la cual carga los datos del csv al programa 
                             TareaPendiente CargaArchTarea = HashTareas.Insertar<TareaRaiz.Titulo, tareaPendiente>;
 
                             CargaArchTarea.Titulo = infor_separada[1];
