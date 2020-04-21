@@ -1,103 +1,64 @@
-﻿using ClassLibrary1.Interfaces;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace ClassLibrary1.Structures
 {
-    class Cola<T> : LinearDataStructureBase<T>
+    class Cola<T>
     {
+        private Nodo<T> Primero { get; set; }
 
-        private Nodo<T> primero { get; set; }
-        private Nodo<T> primeroAux { get; set; }
-        public void Encolar(T valor, int prioridad)
+        public void Insertar(T valor, int prioridad)
         {
-            Insertar(valor, prioridad);
-            OrdenarColaPrioridad();
-        }
-        public T Desencolar()
-        {
-            var valor = Get();
-            Eliminar();
-            return valor;
-        }
-        protected override void Insertar(T valor, int prioridad)
-        {
-            if (primero == null)
+            if (Primero == null)
             {
-                primero = new Nodo<T>
-                {
-                    valor = valor,
-                    siguiente = null,
-                    prioridad = prioridad
-                };
+                Primero = NuevoNodo(valor, prioridad);
+            }
+            Nodo<T> inicio = Primero;
+
+            Nodo<T> temp = NuevoNodo(valor, prioridad);
+
+            if (Primero.prioridad > prioridad)
+            {
+                temp.siguiente = Primero;
+                Primero = temp;
             }
             else
             {
-                var actual = primero;
-                while (actual.siguiente != null)
+                while (inicio.siguiente != null && inicio.siguiente.prioridad < prioridad)
                 {
-                    actual = actual.siguiente;
+                    inicio = inicio.siguiente;
                 }
-                actual.siguiente = new Nodo<T>
-                {
-                    valor = valor,
-                    siguiente = null
-                };
+            }
+            temp.siguiente = inicio.siguiente;
+            inicio.siguiente = temp;
+        }
+        public T Eliminar()
+        {
+            var value = Peek();
+            EliminarColaPrioridad();
+            return value;
+        }
+        protected void EliminarColaPrioridad()
+        {
+            if (Primero != null)
+            {
+                Primero = Primero.siguiente;
             }
         }
-        public void InsertarAuxiliar(T valor, int prioridad)
+        protected T Peek()
         {
-            if (primeroAux == null)
-            {
-                primeroAux = new Nodo<T>
-                {
-                    valor = valor,
-                    siguiente = null,
-                    prioridad = prioridad
-                };
-            }
-            else
-            {
-                var actual = primeroAux;
-                while (actual.siguiente != null)
-                {
-                    actual = actual.siguiente;
-                }
-                actual.siguiente = new Nodo<T>
-                {
-                    valor = valor,
-                    siguiente = null
-                };
-            }
-        }
-        protected override void Eliminar()
-        {
-            if (primero != null)
-            {
-                primero = primero.siguiente;
-            }
-        }
-        protected override T Get()
-        {
-            return primero.valor;
+            return Primero.valor;
         }
 
-        public void OrdenarColaPrioridad()
+        public static Nodo<T> NuevoNodo(T valor, int prioridad)
         {
-            var aux = primero;
-            for (int i = 1; i < 11; i++)//Va a meter los datos a una nueva cola por prioridad
-            {
-                while (aux != null)//Recorrera la cola buscando los valores con la prioridad del contador
-                {
-                    if (primero.prioridad == i)
-                    {
-                        InsertarAuxiliar(aux.valor, aux.prioridad);
-                    }
-                }
-            }
-            primero = primeroAux;
-            primeroAux = null;
+            var temp = new Nodo<T>();
+            temp.valor = valor;
+            temp.prioridad = prioridad;
+            temp.siguiente = null;
+
+            return temp;
         }
     }
 }

@@ -127,8 +127,6 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="HashTable.cs" />
-    <Compile Include="ILinearDataStructure.cs" />
-    <Compile Include="LinearDataStructureBase.cs" />
     <Compile Include="Models\TareaPendiente.cs" />
     <Compile Include="Models\Usuario.cs" />
     <Compile Include="Nodo.cs" />
