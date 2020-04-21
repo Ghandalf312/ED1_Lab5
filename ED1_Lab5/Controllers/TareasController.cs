@@ -13,11 +13,23 @@ namespace ED1_Lab4.Controllers
     public class TareasController : Controller
     {
         public static List<TareaPendiente> CargaTareas = new List<TareaPendiente>();
+        public static List<TareaPendiente> CargaTareasGlobal = new List<TareaPendiente>();
         public static List<Usuario> IngresoUsuario = new List<Usuario>();
+
+        //public override int GetHashCode()
+        //{
+        //    return base.GetHashCode();
+        //}
+
+        private string RutaTareas = AppDomain.CurrentDomain.BaseDirectory + "/Tareas";
 
         //CREAR una Tabla Hash Global
 
         HashTable<string,TareaPendiente> HashTareas;
+
+        Cola<string> ColaPrioridad;
+
+      
 
         //TareaPendiente
         TareaPendiente TareaRaiz;
@@ -59,8 +71,15 @@ namespace ED1_Lab4.Controllers
                 return View();
             }
         }
+        //VISTA MANAGER
+        // GET: Tareas
+        public ActionResult IndexManager()
+        {
+            return View(CargaTareasGlobal);
+        }
 
-
+        //VISTA DEVELOPER
+        //ORDENAR POR PRIORIDAD
         // GET: Tareas
         public ActionResult Index()
         {
@@ -86,8 +105,7 @@ namespace ED1_Lab4.Controllers
         {
             try
             {
-                var colaPrioridad = new Cola<string>();
-                var hashTarea = new HashTable<string, TareaPendiente>();
+
                 TareaPendiente NuevoPendiente = new TareaPendiente()
                 {
                    
@@ -98,9 +116,13 @@ namespace ED1_Lab4.Controllers
                     FechaEntrega = collection["FechaEntrega"]
 
                 };
+                //Listas
                 CargaTareas.Add(NuevoPendiente);
-                hashTarea.Insertar(NuevoPendiente.Titulo, NuevoPendiente);
-                colaPrioridad.Insertar(NuevoPendiente.Titulo, NuevoPendiente.Prioridad);
+                CargaTareasGlobal.Add(NuevoPendiente);
+
+                //Estructuras
+                HashTareas.Insertar(NuevoPendiente.Titulo, NuevoPendiente);
+                ColaPrioridad.Insertar(NuevoPendiente.Titulo, NuevoPendiente.Prioridad);
       
                 return RedirectToAction("Index");
             }
@@ -154,6 +176,8 @@ namespace ED1_Lab4.Controllers
                     FechaEntrega = collection["FechaEntrega"]
 
                 };
+                HashTareas.Eliminar(EliminarPendiente.Titulo);
+                //ColaPrioridad.Eliminar();
                 CargaTareas.Remove(EliminarPendiente);
 
                 return RedirectToAction("Index");
@@ -163,6 +187,8 @@ namespace ED1_Lab4.Controllers
                 return View();
             }
         }
+
+
         //Carga de Archivo
         //GET
         public ActionResult CargaArch()
