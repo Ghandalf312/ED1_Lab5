@@ -21,19 +21,17 @@ namespace ED1_Lab4.Controllers
         //    return base.GetHashCode();
         //}
 
-        private string RutaTareas = AppDomain.CurrentDomain.BaseDirectory + "/Tareas";
+        private string RutaTareas = AppDomain.CurrentDomain.BaseDirectory + "/Tareas.csv";
 
         //CREAR una Tabla Hash Global
-
         public HashTable<string,TareaPendiente> HashTareas;
 
          Cola<string> ColaPrioridad;
 
-      
-
         //TareaPendiente
         public TareaPendiente TareaRaiz;
 
+        StreamWriter Escribir;
 
         // GET: Tareas/PaginaPrincipal
         public ActionResult PaginaPrincipal()
@@ -206,10 +204,15 @@ namespace ED1_Lab4.Controllers
         [HttpPost]
         public ActionResult Crear(HttpPostedFileBase postedFile)
         {
-            StreamWriter Escribir = new StreamWriter(RutaTareas);
+            Escribir = new StreamWriter(RutaTareas);
             string Contenido = null;
 
-
+            for (int i = 0;i < CargaTareas.Count; i++)
+            {
+                Contenido = string.Format("{0},{1},{2},{3},{4}", CargaTareas[i].Id, CargaTareas[i].Titulo, CargaTareas[i].Proyecto, CargaTareas[i].Descripcion, CargaTareas[i].Prioridad, CargaTareas[i].FechaEntrega);
+                Escribir.WriteLine(Contenido);
+            }
+            Escribir.Close();
             return RedirectToAction("Index");
         }
         //Carga de Archivo
