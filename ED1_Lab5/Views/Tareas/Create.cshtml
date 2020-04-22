@@ -7,10 +7,10 @@
 <h2>Crear Tarea Nueva</h2>
 
 
-@using (Html.BeginForm()) 
+@using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
         <h4>Tarea Pendiente</h4>
         <hr />
@@ -66,7 +66,9 @@
 <div>
     @Html.ActionLink("Volver a Tareas", "Index")
 </div>
-
+<div>
+    @Html.ActionLink("Pagina Principal", "PaginaPrincipal")
+</div>>
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 }

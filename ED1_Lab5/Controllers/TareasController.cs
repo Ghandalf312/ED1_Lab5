@@ -82,10 +82,10 @@ namespace ED1_Lab4.Controllers
         // GET: Tareas
         public ActionResult Index()
         {
-            CargaTareas.Sort((x, y) => x.Prioridad.CompareTo(y.Prioridad));
+            IngresoUsuario[IngresoUsuario.Count - 1].tareaPendientes.Sort((x, y) => x.Prioridad.CompareTo(y.Prioridad));
 
             //return View(IngresoUsuario[IngresoUsuario.Count-1]);
-            return View(CargaTareas);
+            return View(IngresoUsuario[IngresoUsuario.Count - 1].tareaPendientes);
         }
 
         // GET: Tareas/Details/5
@@ -111,7 +111,7 @@ namespace ED1_Lab4.Controllers
 
                 TareaPendiente NuevoPendiente = new TareaPendiente()
                 {
-                   User =IngresoUsuario[0].User,
+                   User =IngresoUsuario[IngresoUsuario.Count-1].User,
                     Titulo = collection["Titulo"],
                     Proyecto = collection["Proyecto"],
                     Descripcion = collection["Descripcion"],
@@ -172,7 +172,7 @@ namespace ED1_Lab4.Controllers
         {
             try
             {
-                return View(CargaTareas[0]);
+                return View(IngresoUsuario[IngresoUsuario.Count - 1].tareaPendientes[0]);
             }
             catch 
             {
@@ -197,9 +197,9 @@ namespace ED1_Lab4.Controllers
                     FechaEntrega = collection["FechaEntrega"]
 
                 };
-                //IngresoUsuario.Remove(IngresoUsuario[0]);
+                IngresoUsuario[IngresoUsuario.Count - 1].tareaPendientes.Remove(IngresoUsuario[IngresoUsuario.Count - 1].tareaPendientes[0]);
                 CargaTareas.Remove(CargaTareas[0]);
-               // HashTareas.Eliminar(EliminarPendiente.Titulo);
+                //HashTareas.Eliminar(EliminarPendiente.Titulo);
 
                 return RedirectToAction("Index");
 

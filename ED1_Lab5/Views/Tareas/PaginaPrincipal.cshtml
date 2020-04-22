@@ -3,27 +3,29 @@
     ViewBag.Title = "PaginaPrincipal";
 }
 
-<h2>PaginaPrincipal</h2>
+<h2>Pagina Principal</h2>
 
 <div class="jumbotron">
     <h1 class="display-4">Bienvenido!</h1>
-    <p class="lead">Bienvenido!.</p>
+    
     <hr class="my-4">
     <p>Administrador de Tareas.</p>
 
-    <div>Developers</div>
-    <h3>
+    <h3>Developers</h3>
+    <h4>
         @Html.ActionLink("Login", "Login", "Tareas")
-    </h3>
-    <h3>
+    </h4>
+    <h4>
         @Html.ActionLink("Cargar Datos", "CargaArch", "Tareas")
-    </h3>
+    </h4>
 
     <p> </p>
     <p> </p>
-    <p>Eres Proyect Manager?</p>
-    <p>Ingresa aqui </p>
-    @Html.ActionLink("Consulta de tareas", "IndexManager", "Tareas")
-    <p> </p>
+    <h3>Eres Proyect Manager?</h3>
+    <h4>Ingresa aqui </h4>
+    <h4>
+        @Html.ActionLink("Consulta de tareas", "IndexManager", "Tareas")
+    </h4>
+    
 
 </div>

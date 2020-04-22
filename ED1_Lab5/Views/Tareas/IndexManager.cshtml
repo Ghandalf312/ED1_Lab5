@@ -4,7 +4,7 @@
     ViewBag.Title = "IndexManager";
 }
 
-<h2>IndexManager</h2>
+<h2>Tareas Developers</h2>
 
 <p>
 
@@ -33,33 +33,35 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Prioridad)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.User)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Titulo)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Descripcion)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Proyecto)
-        </td>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Prioridad)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.User)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Titulo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Descripcion)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Proyecto)
+            </td>
 
-        <td>
-            @Html.DisplayFor(modelItem => item.FechaEntrega)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id = item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id = item.Id })
-        </td>
-    </tr>
-}
+            <td>
+                @Html.DisplayFor(modelItem => item.FechaEntrega)
+            </td>
+            @*<td>
+                @Html.ActionLink("Tarea Finalizada", "PrioridadTareas", new { id = 0 })
+            </td>*@
+        </tr>
+    }
 
 </table>
+<div>
+    @Html.ActionLink("Pagina Principal", "PaginaPrincipal")
+</div>>
