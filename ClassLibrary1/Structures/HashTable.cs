@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace ClassLibrary1.Structures
 {
     public class HashTable<T, TU>
-    {
+    { //Comentario comprobando que no de el error otra vez
         
         //                      < Llave, Valor>
         private LinkedList<Tuple<T, TU>>[] items;
