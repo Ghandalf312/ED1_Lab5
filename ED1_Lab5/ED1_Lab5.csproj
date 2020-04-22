@@ -174,6 +174,7 @@
     <Content Include="Views\Tareas\PaginaPrincipal.cshtml" />
     <Content Include="Views\Tareas\Create.cshtml" />
     <Content Include="Views\Tareas\IndexManager.cshtml" />
+    <Content Include="Views\Tareas\PrioridadTareas.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

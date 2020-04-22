@@ -1,0 +1,62 @@
+﻿@model IEnumerable<ED1_Lab5.Models.TareaPendiente>
+
+@{
+    ViewBag.Title = "PrioridadTareas";
+}
+
+<h2>PrioridadTareas</h2>
+<h2>Tareas Developer</h2>
+@Html.ActionLink("Ordenar por Prioridad de Tareas", "PrioridadTareas")
+
+<p>
+    @Html.ActionLink("Agregar Nueva Tarea", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Prioridad)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Titulo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Descripcion)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Proyecto)
+        </th>
+
+        <th>
+            @Html.DisplayNameFor(model => model.FechaEntrega)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Prioridad)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Titulo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Descripcion)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Proyecto)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.FechaEntrega)
+            </td>
+            <td>
+                @Html.ActionLink("Editar Tarea", "Edit", new { id = item.Id }) |
+                @Html.ActionLink("Detalles", "Details", new { id = item.Id }) |
+                @Html.ActionLink("Tarea Finalizada", "Delete", new { id = item.Id })
+            </td>
+        </tr>
+    }
+
+</table>

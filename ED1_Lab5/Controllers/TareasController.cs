@@ -116,6 +116,8 @@ namespace ED1_Lab4.Controllers
                     FechaEntrega = collection["FechaEntrega"]
 
                 };
+                
+
                 //Listas
                 CargaTareas.Add(NuevoPendiente);
                 CargaTareasGlobal.Add(NuevoPendiente);
@@ -130,6 +132,13 @@ namespace ED1_Lab4.Controllers
             {
                 return View();
             }
+        }
+
+        public ActionResult PrioridadTareas()
+        {
+            CargaTareas.Sort((x, y) => x.Prioridad.CompareTo(y.Prioridad));
+
+            return View(CargaTareas);
         }
 
         // GET: Tareas/Edit/5
