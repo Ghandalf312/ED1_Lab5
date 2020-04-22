@@ -25,14 +25,14 @@ namespace ED1_Lab4.Controllers
 
         //CREAR una Tabla Hash Global
 
-        HashTable<string,TareaPendiente> HashTareas;
+        public HashTable<string,TareaPendiente> HashTareas;
 
-        Cola<string> ColaPrioridad;
+         Cola<string> ColaPrioridad;
 
       
 
         //TareaPendiente
-        TareaPendiente TareaRaiz;
+        public TareaPendiente TareaRaiz;
 
 
         // GET: Tareas/PaginaPrincipal
@@ -188,7 +188,21 @@ namespace ED1_Lab4.Controllers
             }
         }
 
+        public ActionResult CrearArch()
+        {
+            ViewBag.Message = "Elección de archivo";
+            return View();
+        }
+        //Post
+        [HttpPost]
+        public ActionResult Crear(HttpPostedFileBase postedFile)
+        {
+            StreamWriter Escribir = new StreamWriter(RutaTareas);
+            string Contenido = null;
 
+
+            return RedirectToAction("Index");
+        }
         //Carga de Archivo
         //GET
         public ActionResult CargaArch()
@@ -233,13 +247,13 @@ namespace ED1_Lab4.Controllers
                         {
                             //Necesito Cargar Las tareas a la tabla hash global
                             //Que hay que enviar
-                            TareaPendiente CargaArchTarea = HashTareas.Insertar<TareaRaiz.Titulo, tareaPendiente>;
+                            //TareaPendiente CargaArchTarea = HashTareas.Insertar<TareaRaiz.Titulo, tareaPendiente>;
 
-                            CargaArchTarea.Titulo = infor_separada[1];
-                            CargaArchTarea.Descripcion = infor_separada[2];
-                            CargaArchTarea.Proyecto = infor_separada[3];
-                            CargaArchTarea.Prioridad = Convert.ToInt32(infor_separada[4]);
-                            CargaArchTarea.FechaEntrega = infor_separada[5];
+                            //CargaArchTarea.Titulo = infor_separada[1];
+                            //CargaArchTarea.Descripcion = infor_separada[2];
+                            //CargaArchTarea.Proyecto = infor_separada[3];
+                            //CargaArchTarea.Prioridad = Convert.ToInt32(infor_separada[4]);
+                            //CargaArchTarea.FechaEntrega = infor_separada[5];
                             
                             lector = archivolec.ReadLine();
                         }
