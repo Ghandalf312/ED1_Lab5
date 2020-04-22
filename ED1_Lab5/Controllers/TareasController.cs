@@ -16,6 +16,7 @@ namespace ED1_Lab4.Controllers
         public static List<TareaPendiente> CargaTareasGlobal = new List<TareaPendiente>();
         public static List<Usuario> IngresoUsuario = new List<Usuario>();
 
+
         //public override int GetHashCode()
         //{
         //    return base.GetHashCode();
@@ -58,8 +59,7 @@ namespace ED1_Lab4.Controllers
                 Usuario IngresoUser = new Usuario()
                 {
                     User = collection["User"],
-                    Contraseña = collection["Contraseña"],
-                    ProyectManager = Convert.ToBoolean(collection["ProyectManager"])
+                    //ProyectManager =
 
                 };
                 IngresoUsuario.Add(IngresoUser);
@@ -83,6 +83,8 @@ namespace ED1_Lab4.Controllers
         // GET: Tareas
         public ActionResult Index()
         {
+            CargaTareas.Sort((x, y) => x.Prioridad.CompareTo(y.Prioridad));
+
             return View(CargaTareas);
         }
 
@@ -125,7 +127,8 @@ namespace ED1_Lab4.Controllers
                 //Estructuras
                 HashTareas.Insertar(NuevoPendiente.Titulo, NuevoPendiente);
                 ColaPrioridad.Insertar(NuevoPendiente.Titulo, NuevoPendiente.Prioridad);
-      
+
+
                 return RedirectToAction("Index");
             }
             catch
@@ -136,9 +139,8 @@ namespace ED1_Lab4.Controllers
 
         public ActionResult PrioridadTareas()
         {
-            CargaTareas.Sort((x, y) => x.Prioridad.CompareTo(y.Prioridad));
 
-            return View(CargaTareas);
+            return View(CargaTareas[0]);
         }
 
         // GET: Tareas/Edit/5
@@ -186,7 +188,6 @@ namespace ED1_Lab4.Controllers
 
                 };
                 HashTareas.Eliminar(EliminarPendiente.Titulo);
-                //ColaPrioridad.Eliminar();
                 CargaTareas.Remove(EliminarPendiente);
 
                 return RedirectToAction("Index");
@@ -254,16 +255,17 @@ namespace ED1_Lab4.Controllers
                         }
                         if (infor_separada.Length == 6)
                         {
-                            //Necesito Cargar Las tareas a la tabla hash global
-                            //Que hay que enviar
-                            //TareaPendiente CargaArchTarea = HashTareas.Insertar<TareaRaiz.Titulo, tareaPendiente>;
 
-                            //CargaArchTarea.Titulo = infor_separada[1];
-                            //CargaArchTarea.Descripcion = infor_separada[2];
-                            //CargaArchTarea.Proyecto = infor_separada[3];
-                            //CargaArchTarea.Prioridad = Convert.ToInt32(infor_separada[4]);
-                            //CargaArchTarea.FechaEntrega = infor_separada[5];
-                            
+                            TareaPendiente CargaArchTarea = new TareaPendiente();
+
+                            CargaArchTarea.Titulo = infor_separada[1];
+                            CargaArchTarea.Descripcion = infor_separada[2];
+                            CargaArchTarea.Proyecto = infor_separada[3];
+                            CargaArchTarea.Prioridad = Convert.ToInt32(infor_separada[4]);
+                            CargaArchTarea.FechaEntrega = infor_separada[5];
+
+                            HashTareas.Insertar(CargaArchTarea.Titulo, CargaArchTarea);
+
                             lector = archivolec.ReadLine();
                         }
                         lector = archivolec.ReadLine();

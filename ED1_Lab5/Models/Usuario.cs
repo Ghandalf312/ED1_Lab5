@@ -7,10 +7,10 @@ namespace ED1_Lab5.Models
 {
     public class Usuario
     {
-        public string User { get; set; }
-        public string Contraseña { get; set; }
-        public bool ProyectManager { get; set; }
+        public int Id { get; set; }
 
+        public string User { get; set; }
+       
         public List<TareaPendiente> TareasUsuario = new List<TareaPendiente>();
     }
 }
