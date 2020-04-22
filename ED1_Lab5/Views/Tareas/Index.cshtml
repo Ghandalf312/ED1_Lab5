@@ -1,11 +1,14 @@
 ﻿@model IEnumerable<ED1_Lab5.Models.TareaPendiente>
 
 @{
-    ViewBag.Title = "Tareas";
+    ViewBag.Title = "Index";
 }
 
 <h2>Tareas Developer</h2>
-@Html.ActionLink("Ver siguiente tarea a Realizar","PrioridadTareas")
+@Html.ActionLink("Ver siguiente tarea a Realizar", "PrioridadTareas", new { id = 0 })
+<p>
+
+</p>
 
 <p>
     @Html.ActionLink("Agregar Nueva Tarea", "Create")
@@ -31,30 +34,30 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Prioridad)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Titulo)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Descripcion)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Proyecto)
-        </td>
-
-        <td>
-            @Html.DisplayFor(modelItem => item.FechaEntrega)
-        </td>
-        <td>
-            @Html.ActionLink("Editar Tarea", "Edit", new { id = item.Id }) |
-            @Html.ActionLink("Detalles", "Details", new { id = item.Id }) |
-            @Html.ActionLink("Tarea Finalizada", "Delete", new { id = item.Id })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Prioridad)
+            </td>
+           
+            <td>
+                @Html.DisplayFor(modelItem => item.Titulo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Descripcion)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Proyecto)
+            </td>
+            
+            <td>
+                @Html.DisplayFor(modelItem => item.FechaEntrega)
+            </td>
+            <td>
+                @Html.ActionLink("Tarea Finalizada", "PrioridadTareas", new { id = 0 })
+            </td>
+        </tr>
+    }
 
 </table>

@@ -57,9 +57,9 @@ namespace ED1_Lab4.Controllers
                 Usuario IngresoUser = new Usuario()
                 {
                     User = collection["User"],
-                    //ProyectManager =
-
+                    
                 };
+                
                 IngresoUsuario.Add(IngresoUser);
 
                 return RedirectToAction("Index");
@@ -73,6 +73,7 @@ namespace ED1_Lab4.Controllers
         // GET: Tareas
         public ActionResult IndexManager()
         {
+            CargaTareasGlobal.Sort((x, y) => x.Prioridad.CompareTo(y.Prioridad));
             return View(CargaTareasGlobal);
         }
 
@@ -83,12 +84,14 @@ namespace ED1_Lab4.Controllers
         {
             CargaTareas.Sort((x, y) => x.Prioridad.CompareTo(y.Prioridad));
 
+            //return View(IngresoUsuario[IngresoUsuario.Count-1]);
             return View(CargaTareas);
         }
 
         // GET: Tareas/Details/5
         public ActionResult Details(int id)
         {
+            
             return View();
         }
 
@@ -108,7 +111,7 @@ namespace ED1_Lab4.Controllers
 
                 TareaPendiente NuevoPendiente = new TareaPendiente()
                 {
-                   
+                   User =IngresoUsuario[0].User,
                     Titulo = collection["Titulo"],
                     Proyecto = collection["Proyecto"],
                     Descripcion = collection["Descripcion"],
@@ -116,9 +119,10 @@ namespace ED1_Lab4.Controllers
                     FechaEntrega = collection["FechaEntrega"]
 
                 };
-                
+
 
                 //Listas
+                IngresoUsuario[IngresoUsuario.Count - 1].tareaPendientes.Add(NuevoPendiente);
                 CargaTareas.Add(NuevoPendiente);
                 CargaTareasGlobal.Add(NuevoPendiente);
 
@@ -135,11 +139,11 @@ namespace ED1_Lab4.Controllers
             }
         }
 
-        public ActionResult PrioridadTareas()
-        {
+        //public ActionResult PrioridadTareas()
+        //{
 
-            return View(CargaTareas[0]);
-        }
+        //    return View(CargaTareas[0]);
+        //}
 
         // GET: Tareas/Edit/5
         public ActionResult Edit(int id)
@@ -164,14 +168,22 @@ namespace ED1_Lab4.Controllers
         }
 
         // GET: Tareas/Delete/5
-        public ActionResult Delete(int id)
+        public ActionResult PrioridadTareas(int id)
         {
-            return View(CargaTareas);
+            try
+            {
+                return View(CargaTareas[0]);
+            }
+            catch 
+            {
+                return RedirectToAction("PaginaPrincipal");
+            }
+            
         }
 
         // POST: Tareas/Delete/5
         [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        public ActionResult PrioridadTareas(int id, FormCollection collection)
         {
             try
             {
@@ -185,10 +197,12 @@ namespace ED1_Lab4.Controllers
                     FechaEntrega = collection["FechaEntrega"]
 
                 };
-                HashTareas.Eliminar(EliminarPendiente.Titulo);
-                CargaTareas.Remove(EliminarPendiente);
+                //IngresoUsuario.Remove(IngresoUsuario[0]);
+                CargaTareas.Remove(CargaTareas[0]);
+               // HashTareas.Eliminar(EliminarPendiente.Titulo);
 
                 return RedirectToAction("Index");
+
             }
             catch
             {

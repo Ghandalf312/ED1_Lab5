@@ -4,15 +4,18 @@
     ViewBag.Title = "IndexManager";
 }
 
-<h2>Consulta de Tareas</h2>
+<h2>IndexManager</h2>
 
 <p>
-    @Html.ActionLink("Agregar Nueva Tarea", "Create")
+
 </p>
 <table class="table">
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.Prioridad)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.User)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Titulo)
@@ -36,6 +39,9 @@
             @Html.DisplayFor(modelItem => item.Prioridad)
         </td>
         <td>
+            @Html.DisplayFor(modelItem => item.User)
+        </td>
+        <td>
             @Html.DisplayFor(modelItem => item.Titulo)
         </td>
         <td>
@@ -49,9 +55,9 @@
             @Html.DisplayFor(modelItem => item.FechaEntrega)
         </td>
         <td>
-            @Html.ActionLink("Editar", "Edit", new { id = item.Id }) |
-            @Html.ActionLink("Detalles", "Details", new { id = item.Id }) |
-            @Html.ActionLink("Tarea Realizada", "Delete", new { id = item.Id })
+            @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+            @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.Id })
         </td>
     </tr>
 }

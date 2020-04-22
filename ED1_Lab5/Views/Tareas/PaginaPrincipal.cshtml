@@ -11,18 +11,19 @@
     <hr class="my-4">
     <p>Administrador de Tareas.</p>
 
-    <div></div>
-
+    <div>Developers</div>
+    <h3>
+        @Html.ActionLink("Login", "Login", "Tareas")
+    </h3>
     <h3>
         @Html.ActionLink("Cargar Datos", "CargaArch", "Tareas")
     </h3>
-    <h3>
-        @Html.ActionLink("Tareas Developer", "Index", "Tareas")
-    </h3>
+
     <p> </p>
     <p> </p>
+    <p>Eres Proyect Manager?</p>
+    <p>Ingresa aqui </p>
+    @Html.ActionLink("Consulta de tareas", "IndexManager", "Tareas")
     <p> </p>
-    <p>Proyect Manager</p>
-    <p>Consulta de tareas (Developers) </p>
 
 </div>

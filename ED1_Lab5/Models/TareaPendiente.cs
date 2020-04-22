@@ -16,5 +16,6 @@ namespace ED1_Lab5.Models
         public int Prioridad { get; set; }
         public string FechaEntrega { get; set; }
 
+        
     }
 }

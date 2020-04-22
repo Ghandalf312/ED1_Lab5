@@ -169,7 +169,6 @@
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Tareas\Index.cshtml" />
-    <Content Include="Views\Tareas\Delete.cshtml" />
     <Content Include="Views\Tareas\Login.cshtml" />
     <Content Include="Views\Tareas\PaginaPrincipal.cshtml" />
     <Content Include="Views\Tareas\Create.cshtml" />

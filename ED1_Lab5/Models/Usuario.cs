@@ -10,7 +10,7 @@ namespace ED1_Lab5.Models
         public int Id { get; set; }
 
         public string User { get; set; }
-       
-        public List<TareaPendiente> TareasUsuario = new List<TareaPendiente>();
+        public List<TareaPendiente> tareaPendientes = new List<TareaPendiente>();
+
     }
 }
