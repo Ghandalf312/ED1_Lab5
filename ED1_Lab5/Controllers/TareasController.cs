@@ -262,23 +262,29 @@ namespace ED1_Lab4.Controllers
                         if (infor_separada.Length == 6)
                         {
 
-                            TareaPendiente CargaArchTarea = new TareaPendiente()
-                            {
-                                User = infor_separada[0],
-                                Titulo = infor_separada[1],
-                                Descripcion = infor_separada[2],
-                                Proyecto = infor_separada[3],
-                                Prioridad = Convert.ToInt32(infor_separada[4]),
-                                FechaEntrega = infor_separada[5]
+                            TareaPendiente CargaArchTarea = new TareaPendiente();
+                            //{
+                            //    User = infor_separada[0],
+                            //    Titulo = infor_separada[1],
+                            //    Descripcion = infor_separada[2],
+                            //    Proyecto = infor_separada[3],
+                            //    Prioridad = Convert.ToInt32(infor_separada[4]),
+                            //    FechaEntrega = infor_separada[5]
 
-                            };
+                            //};
+                            CargaArchTarea.User = infor_separada[0];
+                            CargaArchTarea.Titulo = infor_separada[1];
+                            CargaArchTarea.Descripcion = infor_separada[2];
+                            CargaArchTarea.Proyecto = infor_separada[3];
+                            CargaArchTarea.Prioridad = Convert.ToInt32(infor_separada[4]);
+                            CargaArchTarea.FechaEntrega = infor_separada[5];
 
                             ColaPrioridad.Insertar(CargaArchTarea.Titulo, CargaArchTarea.Prioridad);
                             HashTareas.Insertar(CargaArchTarea.Titulo, CargaArchTarea);
 
                             CargaTareasGlobal.Add(CargaArchTarea);
+                           // lector = archivolec.ReadLine();
 
-                            lector = archivolec.ReadLine();
                         }
                         lector = archivolec.ReadLine();
 
