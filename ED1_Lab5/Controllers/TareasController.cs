@@ -15,24 +15,13 @@ namespace ED1_Lab4.Controllers
         public static List<TareaPendiente> CargaTareas = new List<TareaPendiente>();
         public static List<TareaPendiente> CargaTareasGlobal = new List<TareaPendiente>();
         public static List<Usuario> IngresoUsuario = new List<Usuario>();
-
-
-        //public override int GetHashCode()
-        //{
-        //    return base.GetHashCode();
-        //}
-
-        private string RutaTareas = AppDomain.CurrentDomain.BaseDirectory + "/Tareas.csv";
-
+        private static string RutaTareas = AppDomain.CurrentDomain.BaseDirectory + "/Tareas.txt";
         //CREAR una Tabla Hash Global
-        public HashTable<string,TareaPendiente> HashTareas;
-
-         Cola<string> ColaPrioridad;
-
+        public static HashTable<string,TareaPendiente> HashTareas = new HashTable<string, TareaPendiente>();
+        private static Cola<string> ColaPrioridad = new Cola<string>();
         //TareaPendiente
         public TareaPendiente TareaRaiz;
-
-        StreamWriter Escribir;
+        public static StreamWriter Escribir = new StreamWriter(RutaTareas);
 
         // GET: Tareas/PaginaPrincipal
         public ActionResult PaginaPrincipal()
@@ -111,7 +100,7 @@ namespace ED1_Lab4.Controllers
 
                 TareaPendiente NuevoPendiente = new TareaPendiente()
                 {
-                   User =IngresoUsuario[IngresoUsuario.Count-1].User,
+                    User =IngresoUsuario[IngresoUsuario.Count-1].User,
                     Titulo = collection["Titulo"],
                     Proyecto = collection["Proyecto"],
                     Descripcion = collection["Descripcion"],
@@ -130,7 +119,17 @@ namespace ED1_Lab4.Controllers
                 HashTareas.Insertar(NuevoPendiente.Titulo, NuevoPendiente);
                 ColaPrioridad.Insertar(NuevoPendiente.Titulo, NuevoPendiente.Prioridad);
 
-
+                Escribir = new StreamWriter(RutaTareas);
+                string Contenido = null;
+                for (int j = 0; j < IngresoUsuario.Count; j++)
+                {
+                    for (int i = 0; i < IngresoUsuario[j].tareaPendientes.Count; i++)
+                    {
+                        Contenido = string.Format("{0},{1},{2},{3},{4},{5}", IngresoUsuario[j].Id.ToString(), IngresoUsuario[j].User, IngresoUsuario[j].tareaPendientes[i].Titulo, IngresoUsuario[j].tareaPendientes[i].Proyecto, IngresoUsuario[j].tareaPendientes[i].Descripcion, IngresoUsuario[j].tareaPendientes[i].Prioridad.ToString(), IngresoUsuario[j].tareaPendientes[i].FechaEntrega) ;
+                        Escribir.WriteLine(Contenido);
+                    }
+                }
+                Escribir.Close();
                 return RedirectToAction("Index");
             }
             catch
@@ -219,15 +218,6 @@ namespace ED1_Lab4.Controllers
         [HttpPost]
         public ActionResult Crear(HttpPostedFileBase postedFile)
         {
-            Escribir = new StreamWriter(RutaTareas);
-            string Contenido = null;
-
-            for (int i = 0;i < CargaTareas.Count; i++)
-            {
-                Contenido = string.Format("{0},{1},{2},{3},{4}", CargaTareas[i].Id, CargaTareas[i].Titulo, CargaTareas[i].Proyecto, CargaTareas[i].Descripcion, CargaTareas[i].Prioridad, CargaTareas[i].FechaEntrega);
-                Escribir.WriteLine(Contenido);
-            }
-            Escribir.Close();
             return RedirectToAction("Index");
         }
         //Carga de Archivo
