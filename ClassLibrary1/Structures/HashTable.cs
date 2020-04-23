@@ -9,14 +9,14 @@ namespace ClassLibrary1.Structures
     public class HashTable<T, TU>
     { //Comentario comprobando que no de el error otra vez
         
-        //                      < Llave, Valor>
+        //                  <Llave, Valor>
         private LinkedList<Tuple<T, TU>>[] items;
         private int factorLlenado = 3;
         private int tamaño;
 
         public HashTable()
         {
-            items = new LinkedList<Tuple<T, TU>>[4];
+            items = new LinkedList<Tuple<T, TU>>[4];//Tamaño incial de la tabla
         }
 
         public void Insertar(T key, TU value)
@@ -30,7 +30,6 @@ namespace ClassLibrary1.Structures
             {
                 throw new ArgumentException("Llave duplicada, no se puede insertar");
             }
-            tamaño++;
             if (tamaño >= factorLlenado)
             {
                 ReHashing();
@@ -41,6 +40,7 @@ namespace ClassLibrary1.Structures
                 items[pos] = new LinkedList<Tuple<T, TU>>();
             }
             items[pos].AddFirst(new Tuple<T, TU>(key, value));
+            tamaño++;
         }
 
         public void Eliminar(T key)

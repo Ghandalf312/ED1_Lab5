@@ -6,7 +6,7 @@ namespace ClassLibrary1.Structures
 {
     class Cola<T>
     {
-        private Nodo<T> Primero { get; set; }
+        public Nodo<T> Primero { get; set; }
 
         public void Insertar(T valor, int prioridad)
         {
